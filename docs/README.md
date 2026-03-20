@@ -45,8 +45,8 @@ physical:
     durationSeconds: 1200
     status: success
     recordsProcessed: 1000000
-    meanTimeBetweenFailuresDays: 12.5
-    meanTimeToRecoveryMinutes: 45.0
+    meanTimeBetweenFailuresDays: 12
+    meanTimeToRecoveryMinutes: 45
 ```
 
 Failure

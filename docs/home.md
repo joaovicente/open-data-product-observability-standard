@@ -2,7 +2,7 @@
 
 Welcome to the Data Product Observability Standard. 
 
-This standard provides a runtime observability metrics schema for a Bitol ODPS data product, surfaced via the managementPort. SLO fields mirror objectives declared in the linked ODCS output port contracts.
+This standard provides an observability specification compatible with [Bitol ODPS data product specification](https://bitol-io.github.io/open-data-product-standard)
 
 ## Resources
 - [Standard Specification](README.md)
