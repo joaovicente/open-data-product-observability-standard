@@ -1,5 +1,7 @@
 import json
 import os
+import re
+import yaml
 
 SCHEMA_PATH = os.path.join(os.path.dirname(__file__), "schema", "odps-observability-json-schema-v0.0.1.json")
 DOCS_DIR = r"c:\Users\Joao\code\open-data-product-observability-standard\docs"
@@ -18,21 +20,8 @@ def resolve_ref(ref_str, root_schema):
         curr = curr.get(p, {})
     return curr
 
-def get_type_str(prop, root_schema=None):
-    if "$ref" in prop and root_schema:
-        prop = resolve_ref(prop["$ref"], root_schema)
-    if "type" in prop:
-        t = prop["type"]
-        if isinstance(t, list):
-            return " | ".join(t)
-        return t
-    return "any"
-
-def get_req_str(name, required_list):
-    return "**Required**" if name in required_list else "Optional"
-
-def render_properties(properties, required_list, level=2, root_schema=None):
-    md = ""
+def flatten_properties(properties, required_list, root_schema, prefix=""):
+    rows = []
     for name, prop in properties.items():
         if "$ref" in prop and root_schema:
             resolved = resolve_ref(prop["$ref"], root_schema)
@@ -40,38 +29,60 @@ def render_properties(properties, required_list, level=2, root_schema=None):
             new_prop.update(prop)
             prop = new_prop
             
-        type_str = get_type_str(prop, root_schema)
-        req_str = get_req_str(name, required_list)
-        desc = prop.get("description", "")
+        full_key = f"{prefix}{name}"
+        req_str = "Yes" if name in required_list else "No"
+        desc = prop.get("description", "").replace("\n", " ").replace("|", "\\|")
         
-        md += f"{'#' * level} `{name}`\n\n"
-        md += f"**Type:** `{type_str}` | {req_str}\n\n"
-        if desc:
-            md += f"{desc}\n\n"
+        # Determine ux label
+        ux_label = name
+        ux_label = re.sub('([a-z0-9])([A-Z])', r'\1 \2', ux_label).title()
         
-        if "enum" in prop:
-            md += "**Allowed Values:**\n"
-            for e in prop["enum"]:
-                md += f"- `{e}`\n"
-            md += "\n"
+        # Determine example
+        ex_val = ""
+        if "examples" in prop and prop["examples"]:
+            ex_val = str(prop["examples"][0])
+        elif "enum" in prop:
+            ex_val = str(prop["enum"][0])
+        
+        if ex_val:
+            ex_val = f"`{ex_val}`"
             
-        if "examples" in prop:
-            md += "**Examples:**\n"
-            for e in prop["examples"]:
-                md += f"- `{e}`\n"
-            md += "\n"
-            
-        if "pattern" in prop:
-            md += f"**Pattern:** `{prop['pattern']}`\n\n"
-        
         if "items" in prop and "properties" in prop["items"]:
-            md += f"This is an array of objects with the following properties:\n\n"
-            item_req = prop["items"].get("required", [])
-            md += render_properties(prop["items"]["properties"], item_req, level + 1, root_schema)
+            # Array of objects
+            desc = f"Array of objects. {desc}"
+            rows.append((full_key + "[]", ux_label, req_str, desc, ex_val))
+            sub_req = prop["items"].get("required", [])
+            rows.extend(flatten_properties(prop["items"]["properties"], sub_req, root_schema, full_key + "[]."))
         elif "properties" in prop:
-            md += render_properties(prop["properties"], prop.get("required", []), level + 1, root_schema)
+            # Object
+            desc = f"Object. {desc}"
+            rows.append((full_key, ux_label, req_str, desc, ex_val))
+            sub_req = prop.get("required", [])
+            rows.extend(flatten_properties(prop["properties"], sub_req, root_schema, full_key + "."))
+        else:
+            rows.append((full_key, ux_label, req_str, desc, ex_val))
             
-    return md
+    return rows
+
+groups = {
+    "Fundamentals": ["schemaVersion", "kind", "productId", "asOf", "period", "status"],
+    "Physical Metrics": ["physical"],
+    "Static Metrics": ["static"],
+    "Dynamic Metrics": ["dynamic", "slo"],
+    "Output Ports": ["outputPorts"],
+    "Lineage": ["lineage"],
+    "Usage": ["usage", "contractUsage"],
+    "Custom Properties": ["customProperties"]
+}
+
+full_example = schema.get("examples", [{}])[0]
+
+def get_example_subset(keys, full_ex):
+    sub = {}
+    for k in keys:
+        if k in full_ex:
+            sub[k] = full_ex[k]
+    return sub
 
 readme = f"""# Data Product Observability Standard
 
@@ -85,25 +96,42 @@ readme = f"""# Data Product Observability Standard
 **Schema File:** [`../schema/odps-observability-json-schema-v0.0.1.json`](../schema/odps-observability-json-schema-v0.0.1.json)
 **Schema ID:** `{schema.get('$id', '')}`
 
-## Properties
-
 """
 
-readme += render_properties(schema.get("properties", {}), schema.get("required", []), 3, schema)
+all_props = schema.get("properties", {})
+root_req = schema.get("required", [])
+
+for group_name, keys in groups.items():
+    readme += f"## {group_name}\n\n"
+    
+    ex_sub = get_example_subset(keys, full_example)
+    if ex_sub:
+        readme += f"### Example\n\n```yaml\n"
+        readme += yaml.dump(ex_sub, sort_keys=False, default_flow_style=False)
+        readme += "```\n\n"
+        
+    readme += "### Field Descriptions\n\n"
+    readme += "| Key | UX label | Required | Description | Example |\n"
+    readme += "|---|---|---|---|---|\n"
+    
+    group_props = {k: all_props[k] for k in keys if k in all_props}
+    rows = flatten_properties(group_props, root_req, schema)
+    for r in rows:
+        key, ux, req, desc, ex = r
+        readme += f"| `{key}` | {ux} | {req} | {desc} | {ex} |\n"
+    
+    readme += "\n"
 
 with open(os.path.join(DOCS_DIR, "README.md"), "w") as f:
     f.write(readme)
+
+print("Docs generated with new layout successfully.")
 
 examples = schema.get("examples", [])
 if examples:
     ex_md = "# Examples\n\n"
     for i, ex in enumerate(examples):
-        ex_md += f"## Example {i+1}\n\n```json\n{json.dumps(ex, indent=2)}\n```\n\n"
-        
+        ex_md += f"## Example {i+1}\n\n```yaml\n{yaml.dump(ex, sort_keys=False, default_flow_style=False)}\n```\n\n"
     with open(os.path.join(EXAMPLES_DIR, "README.md"), "w") as f:
         f.write(ex_md)
-else:
-    with open(os.path.join(EXAMPLES_DIR, "README.md"), "w") as f:
-        f.write("# Examples\n\nNo examples provided in the schema.\n")
 
-print("Generated docs successfully.")
