@@ -6,15 +6,15 @@ This repository uses [Material for MkDocs](https://squidfunk.github.io/mkdocs-ma
 
 - **`schema/`**: Contains the raw JSON schemas for each version.
 - **`generate_docs.py`**: A custom Python script that parses the JSON schema and converts it into the Markdown format (`docs/README.md`) using your predefined layout and tables.
-- **`mike`**: An MkDocs plugin that builds your markdown files into HTML and commits them directly to the hidden `gh-pages` branch, organizing them by version folder (e.g. `/v0.0.1` and `/v0.1.0-preview`).
+- **`mike`**: An MkDocs plugin that builds your markdown files into HTML and commits them directly to the hidden `gh-pages` branch, organizing them by version folder (e.g. `/v0.0.1` and `/v0.1.0`).
 
 ---
 
-## 🏗️ 1. Modifying the Current Version (e.g., `v0.1.0-preview`)
+## 🏗️ 1. Modifying the Current Version (e.g., `v0.1.0`)
 
-Because your `master` branch is currently dedicated to the newest `v0.1.0-preview`, you can just make changes directly here!
+Because your `master` branch is currently dedicated to the newest `v0.1.0`, you can just make changes directly here!
 
-1. **Edit the Schema**: Make changes to `schema/odps-observability-json-schema-v0.1.0-preview.json`.
+1. **Edit the Schema**: Make changes to `schema/odps-observability-json-schema-v0.1.0.json`.
 2. **Regenerate Docs**: Run `python generate_docs.py` to recreate the Markdown tables and YAML examples inside `docs/README.md`.
 3. *(Optional) Edit free-text markdown*: Modify `docs/home.md` or `docs/changelog.md` as needed.
 4. **Preview Locally**: Stop the `mike` server and start a live-reloading standard MkDocs server:
@@ -25,16 +25,16 @@ Because your `master` branch is currently dedicated to the newest `v0.1.0-previe
    ```powershell
    git add .
    git commit -m "Updated schema tables"
-   mike deploy v0.1.0-preview
+   mike deploy v0.1.0
    ```
 
 ---
 
 ## ⏪ 2. Modifying an Older Version (e.g., `v0.0.1`)
 
-If you want to update the `v0.0.1` docs without bringing in your new `v0.1.0-preview` changes, you must use Git branches. By switching your Git branch back in time, `generate_docs.py` will correctly point to `v0.0.1.json`.
+If you want to update the `v0.0.1` docs without bringing in your new `v0.1.0` changes, you must use Git branches. By switching your Git branch back in time, `generate_docs.py` will correctly point to `v0.0.1.json`.
 
-1. **Create a Maintenance Branch**: Checkout the commit immediately before the `v0.1.0-preview` was introduced (`c3adc26` on `master` at the time of creation):
+1. **Create a Maintenance Branch**: Checkout the commit immediately before the `v0.1.0` was introduced (`c3adc26` on `master` at the time of creation):
    ```powershell
    git checkout -b release/v0.0.1 c3adc26
    ```
@@ -59,7 +59,7 @@ If you want to update the `v0.0.1` docs without bringing in your new `v0.1.0-pre
 
 When `v0.1.0` is officially finalized, you'll simply follow this workflow on `master`:
 
-1. Copy your schema: `Copy-Item schema\odps-observability-...-v0.1.0-preview.json schema\...-v0.1.0.json`
+1. Copy your schema: `Copy-Item schema\odps-observability-...-v0.1.0.json schema\...-v0.1.0.json`
 2. Update all internal strings and regular expression configurations to point to `0.1.0`.
 3. Ensure `generate_docs.py` points to the new `0.1.0` JSON file.
 4. Deploy the new stable release and stamp it as `latest`:
@@ -75,7 +75,7 @@ When `v0.1.0` is officially finalized, you'll simply follow this workflow on `ma
 
 ## 🙈 4. Hiding a Working Version (In Construction)
 
-If you have a version (e.g., `v0.1.0-preview`) rapidly undergoing structural changes and you want to **hide** it from the public version dropdown until it is solid:
+If you have a version (e.g., `v0.1.0`) rapidly undergoing structural changes and you want to **hide** it from the public version dropdown until it is solid:
 
 1. **Delete it from the Public Site:** This strictly deletes the generated HTML artifacts deployed to `gh-pages`. It **does not** delete your source code or branches:
    ```powershell
@@ -106,7 +106,7 @@ When working on documentation, you have two fundamentally different ways to serv
    ```powershell
    mkdocs serve
    ```
-   This builds a live-reloading preview of your *current physical workspace* (e.g., your `master` branch) directly in memory, ignoring `mike` version structures entirely. Use this when actively writing new markdown or testing `v0.1.0-preview` structural changes under construction.
+   This builds a live-reloading preview of your *current physical workspace* (e.g., your `master` branch) directly in memory, ignoring `mike` version structures entirely. Use this when actively writing new markdown or testing `v0.1.0` structural changes under construction.
    
    *Tip: If `mike serve` is already securely running on port `8000`, you can spin this up on a different port in a second terminal to view both simultaneously:*
    ```powershell
