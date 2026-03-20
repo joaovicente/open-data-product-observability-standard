@@ -1,4 +1,4 @@
-# Data Product Observability Standard
+# Open Data Product Observability Standard
 
 ## Executive Summary
 
@@ -7,7 +7,7 @@ Observability specification compatible with [Bitol ODPS data product specificati
 ## Schema Details
 
 **Schema Version:** `0.0.1`
-**Schema File:** [`odps-observability-json-schema-v0.0.1.json`](../schema/odps-observability-json-schema-v0.0.1.json)
+**Schema File:** [`odps-observability-json-schema-v0.0.1.json`](https://raw.githubusercontent.com/joaovicente/open-data-product-observability-standard/refs/heads/master/schema/odps-observability-json-schema-v0.0.1.json)
 
 ## Fundamentals
 

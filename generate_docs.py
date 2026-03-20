@@ -84,7 +84,7 @@ def get_example_subset(keys, full_ex):
             sub[k] = full_ex[k]
     return sub
 
-readme = f"""# Data Product Observability Standard
+readme = f"""# Open Data Product Observability Standard
 
 ## Executive Summary
 
