@@ -6,9 +6,9 @@ Runtime observability metrics for a Bitol ODPS data product, surfaced via the ma
 
 ## Schema Details
 
-**Schema Version:** `0.1.0-preview`
-**Schema File:** [`../schema/odps-observability-json-schema-v0.1.0-preview.json`](../schema/odps-observability-json-schema-v0.1.0-preview.json)
-**Schema ID:** `https://bitol-io.github.io/open-data-product-observability-standard/schema/odps-observability-json-schema-v0.1.0-preview.json`
+**Schema Version:** `0.1.0`
+**Schema File:** [`../schema/odps-observability-json-schema-v0.1.0.json`](../schema/odps-observability-json-schema-v0.1.0.json)
+**Schema ID:** `https://bitol-io.github.io/open-data-product-observability-standard/schema/odps-observability-json-schema-v0.1.0.json`
 
 ## Fundamentals
 
@@ -26,7 +26,7 @@ status: critical
 
 | Key | UX label | Required | Description | Example |
 |---|---|---|---|---|
-| `schemaVersion` | Schema Version | Yes | Semantic version of this schema. Consumers should use this for compatibility checks. | `0.1.0-preview` |
+| `schemaVersion` | Schema Version | Yes | Semantic version of this schema. Consumers should use this for compatibility checks. | `0.1.0` |
 | `kind` | Kind | No | The kind of file this is. Valid value is `DataProductObservability`. | `DataProductObservability` |
 | `productId` | Product Id | Yes | UUID of the data product as declared in the ODPS | `fbe8d147-28db-4f1d-bedf-a3fe9f458427` |
 | `asOf` | As Of | Yes | ISO 8601 UTC timestamp at which these metrics were collected. |  |
