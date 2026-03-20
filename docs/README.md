@@ -7,7 +7,8 @@ Runtime observability metrics for a Bitol ODPS data product, surfaced via the ma
 ## Schema Details
 
 **Schema Version:** `0.0.1`
-**Schema ID:** `https://github.com/joaovicente/data-mesh-viewer/blob/main/src/schemas/odps-observability-metrics-json-schema-v1.0.0.json`
+**Schema File:** [`../schema/odps-observability-json-schema-v0.0.1.json`](../schema/odps-observability-json-schema-v0.0.1.json)
+**Schema ID:** `https://bitol-io.github.io/open-data-product-observability-standard/schema/odps-observability-json-schema-v0.0.1.json`
 
 ## Properties
 

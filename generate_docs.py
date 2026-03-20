@@ -1,7 +1,7 @@
 import json
 import os
 
-SCHEMA_PATH = r"C:\Users\Joao\code\data-mesh-viewer\src\schemas\odps-observability-metrics-schema-v0.0.1.json"
+SCHEMA_PATH = os.path.join(os.path.dirname(__file__), "schema", "odps-observability-json-schema-v0.0.1.json")
 DOCS_DIR = r"c:\Users\Joao\code\open-data-product-observability-standard\docs"
 EXAMPLES_DIR = os.path.join(DOCS_DIR, "examples")
 
@@ -82,6 +82,7 @@ readme = f"""# Data Product Observability Standard
 ## Schema Details
 
 **Schema Version:** `0.0.1`
+**Schema File:** [`../schema/odps-observability-json-schema-v0.0.1.json`](../schema/odps-observability-json-schema-v0.0.1.json)
 **Schema ID:** `{schema.get('$id', '')}`
 
 ## Properties
