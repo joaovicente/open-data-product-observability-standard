@@ -6,6 +6,7 @@
     "type": "object",
     "required": [
         "schemaVersion",
+        "kind",
         "productId",
         "asOf",
         "period",
@@ -42,28 +43,27 @@
         },
         "period": {
             "type": "string",
-            "description": "ISO 8601 duration representing the observation window for rate-based metrics (e.g. query volume, pipeline runs).",
+            "description": "ISO 8601 duration representing the observation window for rate-based metrics.",
             "pattern": "^P(?:\\d+Y)?(?:\\d+M)?(?:\\d+W)?(?:\\d+D)?(?:T(?:\\d+H)?(?:\\d+M)?(?:\\d+S)?)?$",
             "examples": [
-                "PT1D",
-                "PT24H",
-                "P7D"
+                "P1D",
+                "P7W",
+                "P1M"
             ]
         },
         "status": {
             "type": "string",
-            "description": "Composite any-case health status derived across all dimensions and output ports. Maps directly to the node shading colour in the mesh visualisation.",
+            "description": "Composite any-case health status derived across all dimensions and output ports.",
             "enum": [
                 "healthy",
                 "degraded",
                 "critical",
                 "unknown"
-            ],
-            "$comment": "healthy = all SLOs met, no failures. degraded = at least one warning-level breach. critical = at least one hard failure (pipeline down, SLO breached, critical quality rule failing). unknown = insufficient data to evaluate."
+            ]
         },
         "physical": {
             "type": "object",
-            "description": "Physical-space metrics (Petrella ch.3): compute, pipeline runtime, and storage — the infrastructure layer beneath the data.",
+            "description": "Physical-space metrics: compute, pipeline runtime, and storage.",
             "properties": {
                 "pipeline": {
                     "type": "object",
@@ -113,15 +113,7 @@
                                 "null"
                             ],
                             "minimum": 0,
-                            "description": "Number of records processed end-to-end by the pipeline in the last run — i.e. records that completed the full source-to-output transformation. Distinct from dynamic.volume.rowCount, which reflects the resulting stored state of the output port. Null if the run failed before completion or if the pipeline does not emit this metric. Aligns with Petrella's physical-space instrumentation of pipeline throughput."
-                        },
-                        "computeCreditsUsed": {
-                            "type": [
-                                "number",
-                                "null"
-                            ],
-                            "minimum": 0,
-                            "description": "Platform-specific compute units consumed (e.g. Databricks DBUs). Null if not applicable or unavailable."
+                            "description": "Number of records processed end-to-end by the pipeline in the last run — i.e. records that completed the full source-to-output transformation. Distinct from dynamic.volume.rowCount, which reflects the resulting stored state of the output port. Null if the run failed before completion or if the pipeline does not emit this metric."
                         },
                         "meanTimeBetweenFailuresDays": {
                             "type": [
@@ -147,10 +139,11 @@
     "additionalProperties": false,
     "examples": [
         {
-            "schemaVersion": "1.0.0",
+            "schemaVersion": "0.0.1",
+            "kind": "DataProductObservability",
             "productId": "fbe8d147-28db-4f1d-bedf-a3fe9f458427",
             "asOf": "2026-03-14T09:00:00Z",
-            "period": "PT1D",
+            "period": "P1D",
             "status": "healthy",
             "physical": {
                 "pipeline": {
@@ -165,10 +158,10 @@
             }
         },
         {
-            "schemaVersion": "1.0.0",
+            "schemaVersion": "0.0.1",
             "productId": "fbe8d147-28db-4f1d-bedf-a3fe9f458427",
             "asOf": "2026-03-14T09:00:00Z",
-            "period": "PT1D",
+            "period": "P1D",
             "status": "critical",
             "physical": {
                 "pipeline": {
