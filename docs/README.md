@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-Runtime observability metrics for a Bitol ODPS data product, surfaced via the managementPort. SLO fields mirror objectives declared in the linked ODCS output port contracts.
+Observability specification compatible with [Bitol ODPS data product specification](https://bitol-io.github.io/open-data-product-standard)
 
 ## Schema Details
 
@@ -17,7 +17,7 @@ Runtime observability metrics for a Bitol ODPS data product, surfaced via the ma
 ```yaml
 schemaVersion: 1.0.0
 productId: fbe8d147-28db-4f1d-bedf-a3fe9f458427
-asOf: '2026-03-13T09:00:00Z'
+asOf: '2026-03-14T09:00:00Z'
 period: PT1D
 status: critical
 ```
@@ -45,10 +45,9 @@ physical:
     status: failed
     recordsProcessed: null
     computeCreditsUsed: null
+    meanTimeBetweenFailuresDays: 12.5
+    meanTimeToRecoveryMinutes: 45.0
     errorMessage: 'Source system unavailable: connection timeout after 30s'
-  storage:
-    sizeBytes: 2147483648
-    partitionCount: 365
 ```
 
 ### Field Descriptions
@@ -65,9 +64,6 @@ physical:
 | `physical.pipeline.computeCreditsUsed` | Compute Credits Used | No | Platform-specific compute units consumed (e.g. Databricks DBUs). Null if not applicable or unavailable. |  |
 | `physical.pipeline.meanTimeBetweenFailuresDays` | Mean Time Between Failures Days | No | MTBF is the average time between repairable failures of a pipeline. Computed from physical.pipeline events: time between status=failed and next status=success. |  |
 | `physical.pipeline.meanTimeToRecoveryMinutes` | Mean Time To Recovery Minutes | No | MTTR Mean time to recovery is the average time it takes to recover from an incident. Computed from physical.pipeline events: time between status=failed and next status=success. |  |
-| `physical.storage` | Storage | No | Object. Physical storage footprint of the data product's output ports. |  |
-| `physical.storage.sizeBytes` | Size Bytes | No | Total uncompressed bytes across all output port tables/files. |  |
-| `physical.storage.partitionCount` | Partition Count | No | Number of physical partitions. Relevant for partitioned tables (e.g. Delta Lake). |  |
 
 ## Static Metrics
 

@@ -5,7 +5,7 @@
 ```yaml
 schemaVersion: 1.0.0
 productId: fbe8d147-28db-4f1d-bedf-a3fe9f458427
-asOf: '2026-03-13T09:00:00Z'
+asOf: '2026-03-14T09:00:00Z'
 period: PT1D
 status: critical
 physical:
@@ -15,10 +15,9 @@ physical:
     status: failed
     recordsProcessed: null
     computeCreditsUsed: null
+    meanTimeBetweenFailuresDays: 12.5
+    meanTimeToRecoveryMinutes: 45.0
     errorMessage: 'Source system unavailable: connection timeout after 30s'
-  storage:
-    sizeBytes: 2147483648
-    partitionCount: 365
 static:
   schema:
     version: 2.3.0

@@ -2,7 +2,7 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "https://bitol-io.github.io/open-data-product-observability-standard/schema/odps-observability-json-schema-v0.0.1.json",
     "title": "DataProductObservability",
-    "description": "Runtime observability metrics for a Bitol ODPS data product, surfaced via the managementPort. SLO fields mirror objectives declared in the linked ODCS output port contracts.",
+    "description": "Observability specification compatible with [Bitol ODPS data product specification](https://bitol-io.github.io/open-data-product-standard)",
     "type": "object",
     "required": [
         "schemaVersion",
@@ -138,28 +138,6 @@
                             ],
                             "minimum": 0,
                             "description": "MTTR Mean time to recovery is the average time it takes to recover from an incident. Computed from physical.pipeline events: time between status=failed and next status=success."
-                        }
-                    }
-                },
-                "storage": {
-                    "type": "object",
-                    "description": "Physical storage footprint of the data product's output ports.",
-                    "properties": {
-                        "sizeBytes": {
-                            "type": [
-                                "integer",
-                                "null"
-                            ],
-                            "minimum": 0,
-                            "description": "Total uncompressed bytes across all output port tables/files."
-                        },
-                        "partitionCount": {
-                            "type": [
-                                "integer",
-                                "null"
-                            ],
-                            "minimum": 0,
-                            "description": "Number of physical partitions. Relevant for partitioned tables (e.g. Delta Lake)."
                         }
                     }
                 }
@@ -730,7 +708,7 @@
         {
             "schemaVersion": "1.0.0",
             "productId": "fbe8d147-28db-4f1d-bedf-a3fe9f458427",
-            "asOf": "2026-03-13T09:00:00Z",
+            "asOf": "2026-03-14T09:00:00Z",
             "period": "PT1D",
             "status": "critical",
             "physical": {
@@ -740,11 +718,9 @@
                     "status": "failed",
                     "recordsProcessed": null,
                     "computeCreditsUsed": null,
+                    "meanTimeBetweenFailuresDays": 12.5,
+                    "meanTimeToRecoveryMinutes": 45.0,
                     "errorMessage": "Source system unavailable: connection timeout after 30s"
-                },
-                "storage": {
-                    "sizeBytes": 2147483648,
-                    "partitionCount": 365
                 }
             },
             "static": {
