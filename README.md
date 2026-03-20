@@ -79,7 +79,7 @@ If you have a version (e.g., `v0.1.0-preview`) rapidly undergoing structural cha
 
 1. **Delete it from the Public Site:** This strictly deletes the generated HTML artifacts deployed to `gh-pages`. It **does not** delete your source code or branches:
    ```powershell
-   mike delete v0.1.0-preview
+   mike delete v0.1.0
    ```
 2. **Work Privately Locally:** Keep constructing the version natively on your regular branch. Use the standard MkDocs engine to preview changes locally without broadcasting them to your github pages:
    ```powershell
@@ -87,7 +87,7 @@ If you have a version (e.g., `v0.1.0-preview`) rapidly undergoing structural cha
    ```
 3. **Show it again (Publish):** Once your work-in-progress is finalized and you are ready to reveal it into the public version selector, just deploy it normally:
    ```powershell
-   mike deploy v0.1.0-preview
+   mike deploy v0.1.0
    ```
 
 ---
