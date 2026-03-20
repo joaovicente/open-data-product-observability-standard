@@ -73,7 +73,7 @@ def render_properties(properties, required_list, level=2, root_schema=None):
             
     return md
 
-readme = f"""# {schema.get('title', 'Schema Documentation')}
+readme = f"""# Data Product Observability Standard
 
 ## Executive Summary
 

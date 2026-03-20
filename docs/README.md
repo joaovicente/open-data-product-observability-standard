@@ -1,4 +1,4 @@
-# DataProductObservabilityMetrics
+# Data Product Observability Standard
 
 ## Executive Summary
 
