@@ -18,7 +18,7 @@ Runtime observability metrics for a Bitol ODPS data product, surfaced via the ma
 schemaVersion: 1.0.0
 productId: fbe8d147-28db-4f1d-bedf-a3fe9f458427
 asOf: '2026-03-13T09:00:00Z'
-period: PT1H
+period: PT1D
 status: critical
 ```
 
@@ -30,7 +30,7 @@ status: critical
 | `kind` | Kind | No | The kind of file this is. Valid value is `DataProductObservability`. | `DataProductObservability` |
 | `productId` | Product Id | Yes | UUID of the data product as declared in the ODPS | `fbe8d147-28db-4f1d-bedf-a3fe9f458427` |
 | `asOf` | As Of | Yes | ISO 8601 UTC timestamp at which these metrics were collected. |  |
-| `period` | Period | Yes | ISO 8601 duration representing the observation window for rate-based metrics (e.g. query volume, pipeline runs). | `PT1H` |
+| `period` | Period | Yes | ISO 8601 duration representing the observation window for rate-based metrics (e.g. query volume, pipeline runs). | `PT1D` |
 | `status` | Status | Yes | Composite any-case health status derived across all dimensions and output ports. Maps directly to the node shading colour in the mesh visualisation. | `healthy` |
 
 ## Physical Metrics

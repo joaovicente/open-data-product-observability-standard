@@ -6,7 +6,7 @@
 schemaVersion: 1.0.0
 productId: fbe8d147-28db-4f1d-bedf-a3fe9f458427
 asOf: '2026-03-13T09:00:00Z'
-period: PT1H
+period: PT1D
 status: critical
 physical:
   pipeline:
