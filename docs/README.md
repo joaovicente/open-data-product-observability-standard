@@ -27,7 +27,7 @@ status: critical
 | Key | UX label | Required | Description | Example |
 |---|---|---|---|---|
 | `schemaVersion` | Schema Version | Yes | Semantic version of this schema. Consumers should use this for compatibility checks. | `0.0.1` |
-| `kind` | Kind | No | The kind of file this is. Valid value is `DataProductObservabilityMetrics`. | `DataProductObservabilityMetrics` |
+| `kind` | Kind | No | The kind of file this is. Valid value is `DataProductObservability`. | `DataProductObservability` |
 | `productId` | Product Id | Yes | UUID of the data product as declared in the ODPS | `fbe8d147-28db-4f1d-bedf-a3fe9f458427` |
 | `asOf` | As Of | Yes | ISO 8601 UTC timestamp at which these metrics were collected. |  |
 | `period` | Period | Yes | ISO 8601 duration representing the observation window for rate-based metrics (e.g. query volume, pipeline runs). | `PT1H` |

@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "https://bitol-io.github.io/open-data-product-observability-standard/schema/odps-observability-json-schema-v0.0.1.json",
-    "title": "DataProductObservabilityMetrics",
+    "title": "DataProductObservability",
     "description": "Runtime observability metrics for a Bitol ODPS data product, surfaced via the managementPort. SLO fields mirror objectives declared in the linked ODCS output port contracts.",
     "type": "object",
     "required": [
@@ -22,10 +22,10 @@
         },
         "kind": {
             "type": "string",
-            "default": "DataProductObservabilityMetrics",
-            "description": "The kind of file this is. Valid value is `DataProductObservabilityMetrics`.",
+            "default": "DataProductObservability",
+            "description": "The kind of file this is. Valid value is `DataProductObservability`.",
             "enum": [
-                "DataProductObservabilityMetrics"
+                "DataProductObservability"
             ]
         },
         "productId": {
