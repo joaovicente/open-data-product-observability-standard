@@ -707,11 +707,12 @@
 <strong>Schema File:</strong> <a href="../schema/odps-observability-json-schema-v0.0.1.json"><code>odps-observability-json-schema-v0.0.1.json</code></a></p>
 <h2 id="fundamentals">Fundamentals</h2>
 <h3 id="example">Example</h3>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">schemaVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">productId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fbe8d147-28db-4f1d-bedf-a3fe9f458427</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">asOf</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2026-03-14T09:00:00Z&#39;</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PT1D</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">healthy</span>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">schemaVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.0.1</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DataProductObservability</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">productId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fbe8d147-28db-4f1d-bedf-a3fe9f458427</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">asOf</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2026-03-14T09:00:00Z&#39;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">P1D</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">healthy</span>
 </span></code></pre></div>
 <h3 id="field-descriptions">Field Descriptions</h3>
 <table>
@@ -735,7 +736,7 @@
 <tr>
 <td><code>kind</code></td>
 <td>Kind</td>
-<td>No</td>
+<td>Yes</td>
 <td>The kind of file this is. Valid value is <code>DataProductObservability</code>.</td>
 <td><code>DataProductObservability</code></td>
 </tr>
@@ -750,21 +751,21 @@
 <td><code>asOf</code></td>
 <td>As Of</td>
 <td>Yes</td>
-<td>ISO 8601 UTC timestamp at which these metrics were collected.</td>
+<td><a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> UTC timestamp at which these metrics were collected.</td>
 <td><code>2026-03-14T09:00:00Z</code></td>
 </tr>
 <tr>
 <td><code>period</code></td>
 <td>Period</td>
 <td>Yes</td>
-<td>ISO 8601 duration representing the observation window for rate-based metrics (e.g. query volume, pipeline runs).</td>
-<td><code>PT1D</code></td>
+<td><a href="https://en.wikipedia.org/wiki/ISO_8601#Durations">ISO 8601 duration</a> representing the observation window for rate-based metrics</td>
+<td><code>P1D</code> (1 day) <code>P7D</code> (7 days) <code>P1M</code> (1 month)</td>
 </tr>
 <tr>
 <td><code>status</code></td>
 <td>Status</td>
 <td>Yes</td>
-<td>Composite any-case health status derived across all dimensions and output ports. Maps directly to the node shading colour in the mesh visualisation.</td>
+<td>Composite any-case health status derived across all observability dimensions. Valid values: <code>healthy</code>, <code>degraded</code>, <code>critical</code>, <code>unknown</code></td>
 <td><code>healthy</code></td>
 </tr>
 </tbody>
@@ -787,7 +788,7 @@
 </span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="nt">lastRunAt</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2026-03-13T08:45:00Z&#39;</span>
 </span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="nt">durationSeconds</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1200</span>
 </span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">failed</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nt">errorMessage</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Source</span><span class="nv"> </span><span class="s">system</span><span class="nv"> </span><span class="s">unavailable:</span><span class="nv"> </span><span class="s">connection</span><span class="nv"> </span><span class="s">timeout</span><span class="nv"> </span><span class="s">after</span><span class="nv"> </span><span class="s">30s&#39;</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="nt">errorMessage</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Spark</span><span class="nv"> </span><span class="s">executor</span><span class="nv"> </span><span class="s">OOM&#39;</span>
 </span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">meanTimeBetweenFailuresDays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12.5</span>
 </span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="nt">meanTimeToRecoveryMinutes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">45.0</span>
 </span></code></pre></div>
@@ -807,7 +808,7 @@
 <td><code>physical</code></td>
 <td>Physical</td>
 <td>No</td>
-<td>Object. Physical-space metrics (Petrella ch.3): compute, pipeline runtime, and storage — the infrastructure layer beneath the data.</td>
+<td>Object. Physical-space the infrastructure layer beneath the data.</td>
 <td></td>
 </tr>
 <tr>
@@ -819,17 +820,17 @@
 </tr>
 <tr>
 <td><code>physical.pipeline.lastRunAt</code></td>
-<td>Last Run At</td>
+<td>Last Run</td>
 <td>No</td>
 <td>UTC timestamp when the last pipeline run started.</td>
-<td></td>
+<td><code>2026-03-13T08:45:00Z</code></td>
 </tr>
 <tr>
 <td><code>physical.pipeline.durationSeconds</code></td>
-<td>Duration Seconds</td>
+<td>Duration</td>
 <td>No</td>
 <td>Wall-clock duration of the last run in seconds. Null if the run failed before completion.</td>
-<td></td>
+<td><code>1200</code></td>
 </tr>
 <tr>
 <td><code>physical.pipeline.status</code></td>
@@ -839,39 +840,32 @@
 <td><code>success</code></td>
 </tr>
 <tr>
-<td><code>physical.pipeline.errorMessage</code></td>
-<td>Error Message</td>
+<td><code>physical.pipeline.failureReason</code></td>
+<td>Failure reason</td>
 <td>No</td>
 <td>Human-readable error message if status=failed.</td>
-<td></td>
+<td><code>Spark executor OOM</code></td>
 </tr>
 <tr>
 <td><code>physical.pipeline.recordsProcessed</code></td>
 <td>Records Processed</td>
 <td>No</td>
-<td>Number of records processed end-to-end by the pipeline in the last run — i.e. records that completed the full source-to-output transformation. Distinct from dynamic.volume.rowCount, which reflects the resulting stored state of the output port. Null if the run failed before completion or if the pipeline does not emit this metric. Aligns with Petrella's physical-space instrumentation of pipeline throughput.</td>
-<td></td>
-</tr>
-<tr>
-<td><code>physical.pipeline.computeCreditsUsed</code></td>
-<td>Compute Credits Used</td>
-<td>No</td>
-<td>Platform-specific compute units consumed (e.g. Databricks DBUs). Null if not applicable or unavailable.</td>
-<td></td>
+<td>Number of records processed end-to-end by the pipeline in the last run. i.e. records that completed the full source-to-output transformation. Null if the run failed before completion or if the pipeline does not emit this metric.</td>
+<td><code>1000000</code></td>
 </tr>
 <tr>
 <td><code>physical.pipeline.meanTimeBetweenFailuresDays</code></td>
-<td>Mean Time Between Failures Days</td>
+<td>MTBF (Mean Time Between Failures)</td>
 <td>No</td>
 <td>MTBF is the average time between repairable failures of a pipeline. Computed from physical.pipeline events: time between status=failed and next status=success.</td>
-<td></td>
+<td><code>12</code></td>
 </tr>
 <tr>
 <td><code>physical.pipeline.meanTimeToRecoveryMinutes</code></td>
-<td>Mean Time To Recovery Minutes</td>
+<td>MRRT (Mean Time To Recovery)</td>
 <td>No</td>
 <td>MTTR Mean time to recovery is the average time it takes to recover from an incident. Computed from physical.pipeline events: time between status=failed and next status=success.</td>
-<td></td>
+<td><code>45</code></td>
 </tr>
 </tbody>
 </table>
