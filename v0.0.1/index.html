@@ -935,7 +935,7 @@
 
 <h1 id="data-product-observability-standard">Data Product Observability Standard</h1>
 <h2 id="executive-summary">Executive Summary</h2>
-<p>Runtime observability metrics for a Bitol ODPS data product, surfaced via the managementPort. SLO fields mirror objectives declared in the linked ODCS output port contracts.</p>
+<p>Observability specification compatible with <a href="https://bitol-io.github.io/open-data-product-standard">Bitol ODPS data product specification</a></p>
 <h2 id="schema-details">Schema Details</h2>
 <p><strong>Schema Version:</strong> <code>0.0.1</code>
 <strong>Schema File:</strong> <a href="../schema/odps-observability-json-schema-v0.0.1.json"><code>../schema/odps-observability-json-schema-v0.0.1.json</code></a>
@@ -944,7 +944,7 @@
 <h3 id="example">Example</h3>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">schemaVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.0.0</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">productId</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">fbe8d147-28db-4f1d-bedf-a3fe9f458427</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">asOf</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2026-03-13T09:00:00Z&#39;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">asOf</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;2026-03-14T09:00:00Z&#39;</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">PT1D</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">critical</span>
 </span></code></pre></div>
@@ -1013,10 +1013,9 @@
 </span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="nt">status</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">failed</span>
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="nt">recordsProcessed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="nt">computeCreditsUsed</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="nt">errorMessage</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Source</span><span class="nv"> </span><span class="s">system</span><span class="nv"> </span><span class="s">unavailable:</span><span class="nv"> </span><span class="s">connection</span><span class="nv"> </span><span class="s">timeout</span><span class="nv"> </span><span class="s">after</span><span class="nv"> </span><span class="s">30s&#39;</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="nt">storage</span><span class="p">:</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="nt">sizeBytes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2147483648</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nt">partitionCount</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">365</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="nt">meanTimeBetweenFailuresDays</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">12.5</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="nt">meanTimeToRecoveryMinutes</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">45.0</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="nt">errorMessage</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Source</span><span class="nv"> </span><span class="s">system</span><span class="nv"> </span><span class="s">unavailable:</span><span class="nv"> </span><span class="s">connection</span><span class="nv"> </span><span class="s">timeout</span><span class="nv"> </span><span class="s">after</span><span class="nv"> </span><span class="s">30s&#39;</span>
 </span></code></pre></div>
 <h3 id="field-descriptions_1">Field Descriptions</h3>
 <table>
@@ -1098,27 +1097,6 @@
 <td>Mean Time To Recovery Minutes</td>
 <td>No</td>
 <td>MTTR Mean time to recovery is the average time it takes to recover from an incident. Computed from physical.pipeline events: time between status=failed and next status=success.</td>
-<td></td>
-</tr>
-<tr>
-<td><code>physical.storage</code></td>
-<td>Storage</td>
-<td>No</td>
-<td>Object. Physical storage footprint of the data product's output ports.</td>
-<td></td>
-</tr>
-<tr>
-<td><code>physical.storage.sizeBytes</code></td>
-<td>Size Bytes</td>
-<td>No</td>
-<td>Total uncompressed bytes across all output port tables/files.</td>
-<td></td>
-</tr>
-<tr>
-<td><code>physical.storage.partitionCount</code></td>
-<td>Partition Count</td>
-<td>No</td>
-<td>Number of physical partitions. Relevant for partitioned tables (e.g. Delta Lake).</td>
 <td></td>
 </tr>
 </tbody>
