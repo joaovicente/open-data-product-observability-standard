@@ -89,3 +89,26 @@ If you have a version (e.g., `v0.1.0-preview`) rapidly undergoing structural cha
    ```powershell
    mike deploy v0.1.0-preview
    ```
+
+---
+
+## 🔍 5. Previewing Documentation Locally (Public vs. Private)
+
+When working on documentation, you have two fundamentally different ways to serve your site locally:
+
+1. **Simulate the Public GitHub Pages (`mike serve`)**
+   ```powershell
+   mike serve
+   ```
+   This spins up a local server mapping directly to the invisible `gh-pages` branch. It perfectly mimics what end users will see on the live internet. Use this to verify that your version dropdown menus, cross-version links, and published aliases (like `latest`) are rendering correctly.
+
+2. **Simulate your Private Workspace (`mkdocs serve`)**
+   ```powershell
+   mkdocs serve
+   ```
+   This builds a live-reloading preview of your *current physical workspace* (e.g., your `master` branch) directly in memory, ignoring `mike` version structures entirely. Use this when actively writing new markdown or testing `v0.1.0-preview` structural changes under construction.
+   
+   *Tip: If `mike serve` is already securely running on port `8000`, you can spin this up on a different port in a second terminal to view both simultaneously:*
+   ```powershell
+   mkdocs serve -a localhost:8001
+   ```
