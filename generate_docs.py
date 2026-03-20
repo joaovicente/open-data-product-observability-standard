@@ -3,7 +3,7 @@ import os
 import re
 import yaml
 
-SCHEMA_PATH = os.path.join(os.path.dirname(__file__), "schema", "odps-observability-json-schema-v0.0.1.json")
+SCHEMA_PATH = os.path.join(os.path.dirname(__file__), "schema", "odps-observability-json-schema-v0.1.0-preview.json")
 DOCS_DIR = r"c:\Users\Joao\code\open-data-product-observability-standard\docs"
 EXAMPLES_DIR = os.path.join(DOCS_DIR, "examples")
 
@@ -92,8 +92,8 @@ readme = f"""# Data Product Observability Standard
 
 ## Schema Details
 
-**Schema Version:** `0.0.1`
-**Schema File:** [`../schema/odps-observability-json-schema-v0.0.1.json`](../schema/odps-observability-json-schema-v0.0.1.json)
+**Schema Version:** `0.1.0-preview`
+**Schema File:** [`../schema/odps-observability-json-schema-v0.1.0-preview.json`](../schema/odps-observability-json-schema-v0.1.0-preview.json)
 **Schema ID:** `{schema.get('$id', '')}`
 
 """
