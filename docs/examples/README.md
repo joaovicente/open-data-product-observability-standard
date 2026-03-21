@@ -1,141 +1,251 @@
 # Examples
 
-## Example 1
+## Health
+
+Returning health status for the data product<br>
+`GET /data-products/{data-product-id}/observe/health`
 
 ```yaml
-schemaVersion: 1.0.0
-productId: fbe8d147-28db-4f1d-bedf-a3fe9f458427
-asOf: '2026-03-13T09:00:00Z'
-period: PT1D
-status: critical
-physical:
-  pipeline:
-    lastRunAt: '2026-03-13T08:45:00Z'
-    durationSeconds: null
-    status: failed
-    recordsProcessed: null
-    computeCreditsUsed: null
-    errorMessage: 'Source system unavailable: connection timeout after 30s'
-  storage:
-    sizeBytes: 2147483648
-    partitionCount: 365
-static:
-  schema:
-    version: 2.3.0
-    lastValidatedAt: '2026-03-13T08:00:00Z'
-    driftDetected: false
-    breakingChangeSinceVersion: null
-    columnCount: 24
-dynamic:
-  volume:
-    rowCount: 1042893
-    rowCountDelta: 0
-    expectedRangeMin: 1000000
-    expectedRangeMax: 1100000
-    withinExpectation: true
-  freshness:
-    lastUpdatedAt: '2026-03-13T07:45:00Z'
-    lagMinutes: 75
-    maxAllowedLagMinutes: 30
-    withinExpectation: false
-  quality:
-    rulesTotal: 12
-    rulesPassed: 9
-    rulesFailed: 3
-    checks:
-    - rule: warehouse_id_not_null
-      column: warehouse_id
-      status: failed
-      nullRate: 0.043
-      failRate: null
-      message: 4.3% of rows have null warehouse_id
-    - rule: quantity_positive
-      column: quantity
-      status: failed
-      nullRate: null
-      failRate: 0.002
-      message: 0.2% of rows have non-positive quantity
-    - rule: product_id_ref_check
-      column: product_id
-      status: failed
-      nullRate: null
-      failRate: 0.011
-      message: 1.1% of product_ids have no match in products table
-    - rule: stock_level_not_null
-      column: stock_level
-      status: passed
-      nullRate: 0.0
-      failRate: null
-      message: null
-slo:
-  uptime:
-    objectivePct: 99.5
-    actualPct: 99.9
-    windowDays: 30
-    met: true
-  freshness:
-    objectiveMinutes: 30
-    actualMinutes: 75
-    met: false
-  qualityScore:
-    objectivePassRate: 1.0
-    actualPassRate: 0.75
-    met: false
-  responseTime: null
-outputPorts:
-- name: inventory_snapshot
-  version: 2.0.0
-  contractId: c2798941-1b7e-4b03-9e0d-955b1a872b33
-  status: critical
-  freshness:
-    lastUpdatedAt: '2026-03-13T07:45:00Z'
-    lagMinutes: 75
-    maxAllowedLagMinutes: 30
-    withinExpectation: false
-  quality:
-    rulesTotal: 12
-    rulesPassed: 9
-    rulesFailed: 3
-    checks: []
-  usage:
-    activeConsumers: 2
-    queryCount: 94
-    lastAccessedAt: '2026-03-13T08:58:00Z'
-lineage:
-  upstreamProducts:
-  - name: wms-events
-    contractId: dbb7b1eb-7628-436e-8914-2a00638ba6db
-    status: critical
-    lastSeenAt: '2026-03-13T07:44:00Z'
-usage:
-  activeConsumers: 4
-  queryCount: 187
-  lastAccessedAt: '2026-03-13T08:58:00Z'
-contractUsage:
-- contractId: c2798941-1b7e-4b03-9e0d-955b1a872b33
-  consumerId: bi-platform
-  queryCount: 134
-  lastAccessedAt: '2026-03-13T08:58:00Z'
-  avgResponseTimeMs: 143
-  p95ResponseTimeMs: 289
-  sloBreachesReported: 0
-  sloBreachDetails: []
-- contractId: c2798941-1b7e-4b03-9e0d-955b1a872b33
-  consumerId: ml-platform
-  queryCount: 53
-  lastAccessedAt: '2026-03-13T07:12:00Z'
-  avgResponseTimeMs: 310
-  p95ResponseTimeMs: 612
-  sloBreachesReported: 1
-  sloBreachDetails:
-  - dimension: freshness
-    reportedAt: '2026-03-13T08:10:00Z'
-    detail: "Data not updated after 75 min \xE2\u20AC\u201D pipeline failure not reflected\
-      \ in producer SLO status at time of access"
-customProperties:
-- property: com.myplatform.databricks.clusterName
-  value: inventory-pipeline-cluster
-  description: Databricks cluster used for pipeline execution
-
+schemaVersion: 0.1.0
+kind: DataProductObservability
+id: fbe8d147-28db-4f1d-bedf-a3fe9f458427
+observedAt: '2026-03-13T09:00:00Z'
+period: P1D
+health: healthy
 ```
 
+## Pipeline metrics
+
+`GET /data-products/{data-product-id}/observe/metrics`
+
+```yaml
+schemaVersion: 0.1.0
+kind: DataProductObservability
+id: fbe8d147-28db-4f1d-bedf-a3fe9f458427
+observedAt: '2026-03-13T09:00:00Z'
+period: P1D
+health: healthy
+source:
+  process: customDataProductObserver
+results:
+  - name: pipelineLastRanAt
+    type: metric
+    measure:
+      value: '2026-03-13T08:45:00Z'
+  - name: pipelineDuration
+    type: metric
+    measure:
+      unit: minutes
+      value: 1200
+  - name: pipelineDurationCheck
+    type: check
+    status: fail
+    severity: warning
+    threshold:
+      mustBeLessThan: 1000
+    measure:
+      unit: minutes
+      value: 1200
+  - name: pipelineLastRunState
+    type: metric
+    measure:
+      value: success
+    message: "Spark executor OOM"
+  - name: pipelineLastRunStateCheck
+    type: check
+    severity: critical
+    threshold:
+      validValues: ["success", "skipped"]
+    measure:
+      value: failed
+    message: "Spark executor OOM"
+  - name: pipelineRecordsProcessed
+    type: metric
+    measure:
+      value: 100000
+  - name: pipelineMeanTimeBetweenFailuresCheck
+    type: check
+    severity: warning
+    status: pass
+    threshold:
+      mustBeMoreThan: 5
+    measure:
+      value: 10
+      unit: days
+  - name: pipelineMeanTimeToRecoveryCheck
+    type: check
+    severity: warning
+    status: pass
+    threshold:
+      mustBeLessThan: 2
+    measure:
+      value: 1
+      unit: hours
+```
+
+## Product and output port consumption metrics
+
+`GET /data-products/{data-product-id}/observe/metrics`
+
+```yaml
+schemaVersion: 0.1.0
+kind: DataProductObservability
+id: fbe8d147-28db-4f1d-bedf-a3fe9f458427
+observedAt: '2026-03-13T09:00:00Z'
+period: P1D
+health: healthy
+source:
+  process: customDataProductObserver
+results:
+  # Data Product level metrics
+  - name: productOutputPortsResponseTimeCheck
+    type: check
+    status: pass
+    severity: warning
+    threshold:
+      mustBeGreatedThan: 50 # > 50% of data contracts should be within SLA
+    measure:
+      unit: percent
+      value: 100
+  - name: productConsumerQueryCount
+    type: metric
+    measure:
+      value: 2509
+  # Data Contract level metrics
+  - name: outputPortResponseTimeMeanCheck
+    target:
+      resourceType: DataContract
+      resourceIdentifier: 123e4567-e89b-12d3-a456-426614174000 # DataContract ID
+    type: check
+    status: fail
+    severity: warning
+    threshold:
+      mustBeLessThan: 10000 # Query (mean) response time must be below 10 seconds
+    measure:
+      unit: seconds
+      value: 12000
+  - name: outputPortDistinctConsumers
+    target:
+      resourceType: DataContract
+      resourceIdentifier: 123e4567-e89b-12d3-a456-426614174000 # DataContract ID
+    type: metric
+    measure:
+      value: 10
+  - name: outputPortQueryCount
+    target:
+      resourceType: DataContract
+      resourceIdentifier: 123e4567-e89b-12d3-a456-426614174000 # DataContract ID
+    type: metric
+    measure:
+      value: 2590
+```
+
+## Data Contract latency
+
+`GET /data-products/{data-product-id}/observe/metrics`
+
+```yaml
+schemaVersion: 0.1.0
+kind: DataProductObservability
+id: fbe8d147-28db-4f1d-bedf-a3fe9f458427
+observedAt: '2026-03-13T09:00:00Z'
+period: P1D
+health: healthy
+source:
+  process: customDataProductObserver
+results:
+  # Data Product level metrics
+  - name: productDataLatencyBeyondSlaCheck
+    type: check
+    status: pass
+    severity: warning
+    threshold:
+      mustBe: 0 # no table latency should be outside SLA
+    measure:
+      unit: percent
+      value: 0
+  - name: productDataLatencyMaximumAcrossAllContracts
+    type: metric
+    measure:
+      unit: hours
+      value: 12
+  # Data Contract level metrics
+  - name: contractDataLatencySlaCheck
+    target:
+      resourceType: DataContract
+      resourceIdentifier: 123e4567-e89b-12d3-a456-426614174000 # DataContract ID
+    type: check
+    severity: warning
+    status: fail
+    threshold:
+      mustBeLessThan: 6 # data latency must be less than 6 hours
+    measure:
+      unit: hours
+      value: 12
+  - name: contractDataLatencySlaCheck
+    target:
+      resourceType: DataContract
+      resourceIdentifier: 123e4567-e89b-12d3-a456-426614174001 # DataContract ID
+    type: check
+    severity: warning
+    status: pass
+    threshold:
+      mustBeLessThan: 6 # data latency must be less than 6 hours
+    measure:
+      unit: hours
+      value: 3
+```
+
+
+## Data Contract quality
+
+`GET /data-products/{data-product-id}/observe/metrics`
+
+```yaml
+schemaVersion: 0.1.0
+kind: DataProductObservability
+id: fbe8d147-28db-4f1d-bedf-a3fe9f458427
+observedAt: '2026-03-13T09:00:00Z'
+period: P1D
+health: healthy
+source:
+  process: customDataProductObserver
+results:
+  # Data Product level metrics
+  - name: productDataQualityRulesFailCheck
+    type: check
+    status: pass
+    severity: warning
+    threshold:
+      mustBe: 0 # no data quality rules should fail
+    measure:
+      unit: percent
+      value: 0
+  # Rules aggregated at contract level (odcs schema and object counts rolled up)
+  - name: contractDataQualityRuleCount
+    target:
+      resourceType: DataContract
+      resourceIdentifier: 123e4567-e89b-12d3-a456-426614174000
+    type: metric
+    measure:
+      value: 100
+  - name: contractDataQualityRuleFailCount
+    target:
+      resourceType: DataContract
+      resourceIdentifier: 123e4567-e89b-12d3-a456-426614174000
+    type: metric
+    measure:
+      value: 0
+  - name: contractDataQualityRulesFailCheck
+    target:
+      resourceType: DataContract
+      resourceIdentifier: 123e4567-e89b-12d3-a456-426614174000
+    type: check
+    status: pass
+    severity: warning
+    threshold:
+      mustBe: 0 # no data quality rules should fail
+    measure:
+      unit: percent
+      value: 0
+```
