@@ -94,6 +94,7 @@ results:
     message: "Spark executor OOM"
   - name: pipelineLastRunStateCheck
     type: check
+    status: fail
     threshold:
       validValues: ["success", "skipped"]
     measure:
@@ -108,7 +109,7 @@ results:
     severity: warning
     status: pass
     threshold:
-      mustBeMoreThan: 5
+      mustBeGreaterThan: 5
     measure:
       value: 10
       unit: days

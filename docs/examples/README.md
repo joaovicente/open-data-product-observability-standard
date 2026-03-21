@@ -53,6 +53,7 @@ results:
     message: "Spark executor OOM"
   - name: pipelineLastRunStateCheck
     type: check
+    status: fail
     severity: critical
     threshold:
       validValues: ["success", "skipped"]
@@ -68,7 +69,7 @@ results:
     severity: warning
     status: pass
     threshold:
-      mustBeMoreThan: 5
+      mustBeGreaterThan: 5
     measure:
       value: 10
       unit: days
@@ -103,7 +104,7 @@ results:
     status: pass
     severity: warning
     threshold:
-      mustBeGreatedThan: 50 # > 50% of data contracts should be within SLA
+      mustBeGreaterThan: 50 # > 50% of data contracts should be within SLA
     measure:
       unit: percent
       value: 100

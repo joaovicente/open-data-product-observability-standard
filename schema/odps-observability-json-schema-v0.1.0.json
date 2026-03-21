@@ -229,6 +229,14 @@
                     }
                 },
                 {
+                    "name": "pipelineDuration",
+                    "type": "metric",
+                    "measure": {
+                        "unit": "minutes",
+                        "value": 1200
+                    }
+                },
+                {
                     "name": "pipelineDurationCheck",
                     "type": "check",
                     "status": "fail",
@@ -239,6 +247,143 @@
                     "measure": {
                         "unit": "minutes",
                         "value": 1200
+                    }
+                },
+                {
+                    "name": "pipelineLastRunState",
+                    "type": "metric",
+                    "measure": {
+                        "value": "success"
+                    },
+                    "message": "Spark executor OOM"
+                },
+                {
+                    "name": "pipelineLastRunStateCheck",
+                    "type": "check",
+                    "status": "fail",
+                    "severity": "critical",
+                    "threshold": {
+                        "validValues": [
+                            "success",
+                            "skipped"
+                        ]
+                    },
+                    "measure": {
+                        "value": "failed"
+                    },
+                    "message": "Spark executor OOM"
+                },
+                {
+                    "name": "pipelineRecordsProcessed",
+                    "type": "metric",
+                    "measure": {
+                        "value": 100000
+                    }
+                },
+                {
+                    "name": "pipelineMeanTimeBetweenFailuresCheck",
+                    "type": "check",
+                    "severity": "warning",
+                    "status": "pass",
+                    "threshold": {
+                        "mustBeGreaterThan": 5
+                    },
+                    "measure": {
+                        "value": 10,
+                        "unit": "days"
+                    }
+                },
+                {
+                    "name": "pipelineMeanTimeToRecoveryCheck",
+                    "type": "check",
+                    "severity": "warning",
+                    "status": "pass",
+                    "threshold": {
+                        "mustBeLessThan": 2
+                    },
+                    "measure": {
+                        "value": 1,
+                        "unit": "hours"
+                    }
+                },
+                {
+                    "name": "productOutputPortsResponseTimeCheck",
+                    "type": "check",
+                    "status": "pass",
+                    "severity": "warning",
+                    "threshold": {
+                        "mustBeGreaterThan": 50
+                    },
+                    "measure": {
+                        "unit": "percent",
+                        "value": 100
+                    }
+                },
+                {
+                    "name": "productConsumerQueryCount",
+                    "type": "metric",
+                    "measure": {
+                        "value": 2509
+                    }
+                },
+                {
+                    "name": "outputPortResponseTimeMeanCheck",
+                    "target": {
+                        "resourceType": "DataContract",
+                        "resourceIdentifier": "123e4567-e89b-12d3-a456-426614174000"
+                    },
+                    "type": "check",
+                    "status": "fail",
+                    "severity": "warning",
+                    "threshold": {
+                        "mustBeLessThan": 10000
+                    },
+                    "measure": {
+                        "unit": "seconds",
+                        "value": 12000
+                    }
+                },
+                {
+                    "name": "outputPortDistinctConsumers",
+                    "target": {
+                        "resourceType": "DataContract",
+                        "resourceIdentifier": "123e4567-e89b-12d3-a456-426614174000"
+                    },
+                    "type": "metric",
+                    "measure": {
+                        "value": 10
+                    }
+                },
+                {
+                    "name": "outputPortQueryCount",
+                    "target": {
+                        "resourceType": "DataContract",
+                        "resourceIdentifier": "123e4567-e89b-12d3-a456-426614174000"
+                    },
+                    "type": "metric",
+                    "measure": {
+                        "value": 2590
+                    }
+                },
+                {
+                    "name": "productDataLatencyBeyondSlaCheck",
+                    "type": "check",
+                    "status": "pass",
+                    "severity": "warning",
+                    "threshold": {
+                        "mustBe": 0
+                    },
+                    "measure": {
+                        "unit": "percent",
+                        "value": 0
+                    }
+                },
+                {
+                    "name": "productDataLatencyMaximumAcrossAllContracts",
+                    "type": "metric",
+                    "measure": {
+                        "unit": "hours",
+                        "value": 12
                     }
                 },
                 {
@@ -256,6 +401,75 @@
                     "measure": {
                         "unit": "hours",
                         "value": 12
+                    }
+                },
+                {
+                    "name": "contractDataLatencySlaCheck",
+                    "target": {
+                        "resourceType": "DataContract",
+                        "resourceIdentifier": "123e4567-e89b-12d3-a456-426614174001"
+                    },
+                    "type": "check",
+                    "severity": "warning",
+                    "status": "pass",
+                    "threshold": {
+                        "mustBeLessThan": 6
+                    },
+                    "measure": {
+                        "unit": "hours",
+                        "value": 3
+                    }
+                },
+                {
+                    "name": "productDataQualityRulesFailCheck",
+                    "type": "check",
+                    "status": "pass",
+                    "severity": "warning",
+                    "threshold": {
+                        "mustBe": 0
+                    },
+                    "measure": {
+                        "unit": "percent",
+                        "value": 0
+                    }
+                },
+                {
+                    "name": "contractDataQualityRuleCount",
+                    "target": {
+                        "resourceType": "DataContract",
+                        "resourceIdentifier": "123e4567-e89b-12d3-a456-426614174000"
+                    },
+                    "type": "metric",
+                    "measure": {
+                        "value": 100
+                    }
+                },
+                {
+                    "name": "contractDataQualityRuleFailCount",
+                    "target": {
+                        "resourceType": "DataContract",
+                        "resourceIdentifier": "123e4567-e89b-12d3-a456-426614174000"
+                    },
+                    "type": "metric",
+                    "measure": {
+                        "value": 0
+                    }
+                },
+                {
+                    "name": "contractDataQualityRulesFailCheck",
+                    "target": {
+                        "resourceType": "DataContract",
+                        "resourceIdentifier": "123e4567-e89b-12d3-a456-426614174000"
+                    },
+                    "type": "check",
+                    "status": "pass",
+                    "severity": "warning",
+                    "threshold": {
+                        "mustBe": 0
+                    },
+                    "measure": {
+                        "unit": "percent",
+                        "value": 0
                     }
                 }
             ]
