@@ -14,7 +14,7 @@ period: P1D
 health: healthy
 ```
 
-## Pipeline metrics
+## Product pipeline metrics
 
 `GET /data-products/{data-product-id}/observe/metrics`
 
@@ -140,7 +140,7 @@ results:
       value: 2590
 ```
 
-## Data Contract latency
+## Data Contract latency metrics
 
 `GET /data-products/{data-product-id}/observe/metrics`
 
