@@ -87,7 +87,7 @@ If you have a version (e.g., `v0.1.0`) rapidly undergoing structural changes and
    ```
 3. **Show it again (Publish):** Once your work-in-progress is finalized and you are ready to reveal it into the public version selector, just deploy it normally:
    ```powershell
-   mike deploy v0.1.0
+   mike deploy --push v0.1.0
    ```
 
 ---
