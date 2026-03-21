@@ -112,3 +112,9 @@ When working on documentation, you have two fundamentally different ways to serv
    ```powershell
    mkdocs serve -a localhost:8001
    ```
+
+---
+
+## 📜 6. License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
