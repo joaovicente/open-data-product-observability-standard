@@ -69,59 +69,45 @@ source:
 
 ```yaml
 results:
-  - name: pipelineLastRanAt
-    type: metric
-    measure:
-      value: '2026-03-13T08:45:00Z'
-  - name: pipelineDuration
-    type: metric
-    measure:
-      unit: minutes
-      value: 1200
-  - name: pipelineDurationCheck
+  - name: dpPipelineLastRunStateCheck
     type: check
-    status: fail
-    severity: warning
+    status: pass
+    severity: critical
     threshold:
-      mustBeLessThan: 1000
-    measure:
-      unit: minutes
-      value: 1200
-  - name: pipelineLastRunState
-    type: metric
+      validValues: ["success"]
     measure:
       value: success
-    message: "Spark executor OOM"
-  - name: pipelineLastRunStateCheck
-    type: check
-    status: fail
-    threshold:
-      validValues: ["success", "skipped"]
-    measure:
-      value: failed
-    message: "Spark executor OOM"
-  - name: pipelineRecordsProcessed
+  - name: dpPipelineLastRanAt
     type: metric
     measure:
-      value: 100000
-  - name: pipelineMeanTimeBetweenFailuresCheck
+      value: '2026-03-21 15:09:37.015000+00:00'
+  - name: dpPipelineRunDuration
+    type: metric
+    measure:
+      value: 2642
+      unit: seconds
+  - name: dpPipelineRecordsProcessed
+    type: metric
+    measure:
+      value: 7852
+  - name: dpPipelineMeanTimeBetweenFailuresCheck
     type: check
+    status: fail
     severity: warning
-    status: pass
     threshold:
       mustBeGreaterThan: 5
     measure:
-      value: 10
+      value: 2
       unit: days
-  - name: pipelineMeanTimeToRecoveryCheck
+  - name: dpPipelineMeanTimeToRecoveryCheck
     type: check
-    severity: warning
     status: pass
+    severity: warning
     threshold:
-      mustBeLessThan: 2
+      mustBeLessThan: 120
     measure:
-      value: 1
-      unit: hours
+      value: 60
+      unit: minutes
 ```
 
 ### Example at product and contract level
@@ -129,52 +115,58 @@ results:
 ```yaml
 results:
   # Data Product level metrics
-  - name: productDataLatencyBeyondSlaCheck
+  - name: dpDataQualityRulesPassCheck
     type: check
     status: pass
     severity: warning
     threshold:
-      mustBe: 0 # > 50% of data contracts should be within SLA
+      mustBe: 100
+    measure:
+      value: 100
+      unit: percent
+  - name: dpDataQualityRuleFailCount
+    type: metric
+    measure:
+      value: 0
+  - name: dcDataQualityRuleCount
+    type: metric
+    measure:
+      value: 10
+
+  # Data Contract level metrics
+  - name: dcDataQualityRulesPassCheck
+    target:
+      resourceType: DataContract
+      resourceIdentifier: 123e4567-e89b-12d3-a456-426614174000
+    type: check
+    status: pass
+    severity: warning
+    threshold:
+      mustBe: 0
     measure:
       unit: percent
       value: 0
-  - name: productDataLatencyMaximumAcrossAllContracts
+  - name: dcDataQualityRuleCount
+    target:
+      resourceType: DataContract
+      resourceIdentifier: 123e4567-e89b-12d3-a456-426614174000
     type: metric
     measure:
-      unit: hours
-      value: 12
-  # Data Contract level metrics
-  - name: contractDataLatencySlaCheck
+      value: 100
+  - name: dcDataQualityRuleFailCount
     target:
       resourceType: DataContract
-      resourceIdentifier: 123e4567-e89b-12d3-a456-426614174000 # DataContract ID
-    type: check
-    severity: warning
-    status: fail
-    threshold:
-      mustBeLessThan: 6 # data latency must be less than 6 hours
+      resourceIdentifier: 123e4567-e89b-12d3-a456-426614174000
+    type: metric
     measure:
-      unit: hours
-      value: 12
-  - name: contractDataLatencySlaCheck
-    target:
-      resourceType: DataContract
-      resourceIdentifier: 123e4567-e89b-12d3-a456-426614174001 # DataContract ID
-    type: check
-    severity: warning
-    status: pass
-    threshold:
-      mustBeLessThan: 6 # data latency must be less than 6 hours
-    measure:
-      unit: hours
-      value: 3
+      value: 0
 ```
 
 ### Field Descriptions
 
 | Key | UX label | Required | Description | Example |
 |---|---|---|---|---|
-| `name` | Name | Yes | The name of the metric. | `pipelineLastRanAt` |
+| `name` | Name | Yes | The name of the metric. | `dpPipelineLastRanAt` |
 | `type` | Type | Yes | The type of the metric. Valid values: `metric`, `check`. When type is `check`, `status` must be provided and `threshold` should also be provided. | `metric` |
 | `target` | Target | No | Object. The target of the metric. |  |
 | `target.resourceType` | Resource Type | No | The type of the resource. Valid values: `DataProduct`, `DataContract`, `DataContract/schema`, `DataContract/schema/object` | `DataProduct` (implicit unless specified) |
