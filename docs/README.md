@@ -19,7 +19,7 @@ This standard enables visualisation tools to monitor data product health and dri
 ## Schema Details
 
 **Schema Version:** `0.1.0`
-**Schema File:** [`../schema/odps-observability-json-schema-v0.1.0.json`](https://github.com/joaovicente/open-data-product-observability-standard/blob/release/v0.1.0/schema/odps-observability-json-schema-v0.1.0.json)
+**Schema File:** [`schema/odps-observability-json-schema-v0.1.0.json`](https://raw.githubusercontent.com/joaovicente/open-data-product-observability-standard/refs/heads/release/v0.1.0/schema/odps-observability-json-schema-v0.1.0.json)
 
 ## Fundamentals
 
